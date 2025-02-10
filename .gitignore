@@ -3,3 +3,5 @@
 .env
 
 core/config.py
+
+.idea/vcs.xml
