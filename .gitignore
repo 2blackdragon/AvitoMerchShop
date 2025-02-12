@@ -2,6 +2,6 @@
 
 .env
 
-core/config.py
+app/core/config.py
 
 .idea/vcs.xml
