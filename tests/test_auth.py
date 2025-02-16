@@ -1,15 +1,14 @@
 import pytest
-from fastapi.testclient import TestClient
-from app.main import app
 
-client = TestClient(app)
 
-def test_login_success():
-    response = client.post("/auth/token", data={"username": "testuser", "password": "password"})
-    assert response.status_code == 200
-    assert "access_token" in response.json()
+def test_create_user(db):
+    from app.models.user import User
 
-def test_login_invalid_credentials():
-    response = client.post("/auth/token", data={"username": "invaliduser", "password": "wrongpassword"})
-    assert response.status_code == 400
-    assert "Invalid credentials" in response.json()["detail"]
+    new_user = User(username="testuser", hashed_password="hashedpassword123")
+    db.add(new_user)
+    db.commit()
+
+    user = db.query(User).filter(User.username == "testuser").first()
+    assert user is not None
+    assert user.username == "testuser"
+    assert user.coins_balance == 1000

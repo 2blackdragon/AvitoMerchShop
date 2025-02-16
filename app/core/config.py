@@ -4,6 +4,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv("DATABASE_URL", "")
+    TEST_DATABASE_URL: str = os.getenv("TEST_DATABASE_URL", "")
     EXPIRE_TOKEN_MINUTES: int = os.getenv("EXPIRE_TOKEN_MINUTES", 20)
     SECRET_KEY: str = os.getenv("SECRET_KEY", "")
     ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
