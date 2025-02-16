@@ -14,6 +14,7 @@ router = APIRouter()
 
 @router.post("/sendCoin")
 async def send_coin(request: TransactionRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    print(request)
     sender = get_user(db, current_user.username)
     if sender.coins_balance < request.amount:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Not enough coins.")
